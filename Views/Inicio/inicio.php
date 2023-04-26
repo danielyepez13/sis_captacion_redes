@@ -63,7 +63,7 @@
       if (!empty($msg)) {
         echo "<div class='alert alert-$alerta alert-dismissible fade show mt-3 mx-3' role='alert'>
             $texto
-            <a href='http://localhost/Proyecto%20Inventario/Inicio' class='close' >
+            <a href='http://localhost/Captacion%20Redes/Inicio' class='close' >
               <span aria-hidden='true'>&times;</span>
             </a>
           </div>";

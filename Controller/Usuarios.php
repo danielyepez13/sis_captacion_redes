@@ -75,7 +75,7 @@ class Usuarios extends Controllers
         $this->views->getView($this, "ListarUsuarios", $data);
     }
 
-    // Trae la vista de registro de usuarios
+    // Trae la lista de roles
     public function registrar()
     {
         // Instancio una variable vacía para evitar errores posteriores

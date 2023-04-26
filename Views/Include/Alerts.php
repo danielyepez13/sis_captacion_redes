@@ -19,7 +19,10 @@ if (empty($msg)) {
 } else if ($msg == 'exito_pregunta') {
     $texto = 'Se logró registrar con éxito la pregunta';
     $alerta = 'success';
-}  else if ($msg == 'exito_usuario') {
+} else if ($msg == 'exito_prueba') {
+    $texto = 'Se logró registrar con éxito la prueba';
+    $alerta = 'success';
+}   else if ($msg == 'exito_usuario') {
     $texto = 'Se logró registrar con éxito el usuario';
     $alerta = 'success';
 } else if ($msg == 'modif_exito') {

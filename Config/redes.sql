@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-04-2023 a las 14:26:51
+-- Tiempo de generación: 26-04-2023 a las 02:31:18
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 7.0.2
 
@@ -55,12 +55,23 @@ CREATE TABLE `pruebas` (
   `id_prueba` int(11) NOT NULL,
   `evaluador` int(11) NOT NULL,
   `evaluado` int(11) NOT NULL,
-  `puntuacion` int(11) NOT NULL,
+  `max_preguntas` int(11) NOT NULL,
+  `min_puntuacion` int(11) NOT NULL,
+  `puntuacion_final` int(11) NOT NULL,
   `fecha_reg_prue` date NOT NULL,
-  `hora_reg_prue` date NOT NULL,
+  `hora_reg_prue` time NOT NULL,
   `fecha_final` date NOT NULL,
-  `status_prueba` int(11) NOT NULL
+  `status_prueba` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `pruebas`
+--
+
+INSERT INTO `pruebas` (`id_prueba`, `evaluador`, `evaluado`, `max_preguntas`, `min_puntuacion`, `puntuacion_final`, `fecha_reg_prue`, `hora_reg_prue`, `fecha_final`, `status_prueba`) VALUES
+(4, 24, 28, 11, 0, 0, '2023-04-25', '18:16:52', '0000-00-00', 1),
+(5, 24, 28, 10, 0, 0, '2023-04-25', '18:17:40', '0000-00-00', 1),
+(7, 24, 28, 12, 0, 0, '2023-04-25', '18:19:30', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -213,7 +224,7 @@ ALTER TABLE `preguntas`
 -- AUTO_INCREMENT de la tabla `pruebas`
 --
 ALTER TABLE `pruebas`
-  MODIFY `id_prueba` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_prueba` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `responder`
 --
