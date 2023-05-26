@@ -21,6 +21,7 @@ encabezado($menu_open, $activo, $msg, $titulo);
                     <th>N°</th>
                     <th>Registrador</th>
                     <th>Evaluado</th>
+                    <th>Estatus de la prueba</th>
                     <th>Fecha registro</th>
                     <th>Hora de registro</th>
                     <th>Acciones</th>
@@ -40,18 +41,28 @@ encabezado($menu_open, $activo, $msg, $titulo);
                         <td>" . $i . "</td> 
                         <td>" . $lista['nombre_evaluador'] ." ". $lista['apellido_evaluador'] ."</td>
                         <td>" . $lista['nombre_evaluado'] . " " . $lista['apellido_evaluado'] . "</td>
+                        <td>" . $lista['estatus'] . "</td>
                         <td>" . $lista['fecha_reg_prue'] . "</td>
                         <td>" . $lista['hora_reg_prue'] . "</td>";
-                    if ($lista['status_prueba'] != 3) {
+                        // Mientras el estatus sea diferente de deshabilitado se verán las demás opciones
+                    if ($lista['status_prueba'] != 4) {
                         echo "
-                        <td><button value='$lista[id_prueba]' id='ver$i' data-toggle='modal' data-target='#verModal' class='btn btn-primary' title='Visualizar'><i class='fas fa-eye'></i></button>
-                        <button value='$lista[id_prueba]' id='editar$i' data-toggle='modal' data-target='#editarModal' class='btn btn-success' title='Modificar'><i class='fas fa-pen'></i></button>";
-                        if ($_SESSION['rol'] == 1) {
-                            echo "<a href='../Preguntas/deshabilitar/$lista[id_prueba]' class='btn btn-danger ml-1' title='Deshabilitar'><i class='fas fa-user-times'></i></a></td></tr>";
+                        <td><button value='$lista[id_prueba]' id='ver$i' data-toggle='modal' data-target='#verModal' class='btn btn-primary' title='Visualizar'><i class='fas fa-eye'></i></button>";
+
+                        // Siempre que sea diferente del rol de usuario y la prueba debe tener estatus de En revisión
+                        if($_SESSION['rol'] != 4 AND $lista['status_prueba'] == 2){
+                            echo "<a href='../Pruebas/revisar/$lista[id_prueba]' id='revisar$i' data-toggle='modal' data-target='#revisarModal' class='btn btn-info ml-1' title='Revisar'><i class='fas fa-calendar-check'></i></a>";
                         }
-                    } else {
+
+                        // Solo el administrador puede deshabilitar
                         if ($_SESSION['rol'] == 1) {
-                            echo "<td><a href='../Preguntas/habilitar/$lista[id_prueba]' class='btn btn-info ml-1' title='Habilitar'><i class='fas fa-user-plus'></i></a></td></tr>";
+                            echo "<a href='../Pruebas/deshabilitar/$lista[id_prueba]' class='btn btn-danger ml-1' title='Deshabilitar'><i class='fas fa-user-times'></i></a></td></tr>";
+                        }
+
+                    } else {
+                        // Solo el administrador puede habilitar registros
+                        if ($_SESSION['rol'] == 1) {
+                            echo "<td><a href='../Pruebas/habilitar/$lista[id_prueba]' class='btn btn-info ml-1' title='Habilitar'><i class='fas fa-user-plus'></i></a></td></tr>";
                         }
                     }
 
@@ -69,7 +80,7 @@ encabezado($menu_open, $activo, $msg, $titulo);
 <?php
 // Se incluyen los modals que permiten realizar las acciones con el registro
 include_once("Views/Modals/Pruebas/VisualizarPruebas.php");
-// include_once("Views/Modals/Pruebas/ModificarPruebas.php");
+include_once("Views/Modals/Pruebas/RevisarPruebas.php");
 include_once("Views/Modals/Pruebas/RegistrarPruebas.php");
 
 // Algoritmo para hacer la prueba la asignar usuario

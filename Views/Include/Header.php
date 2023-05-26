@@ -35,13 +35,13 @@ if ($cantidad_s >= 6) {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= $slash ?>Assets/plugins/fontawesome-free/css/all.min.css">
     <!-- Ion Icons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= $slash ?>Assets/css/adminlte.min.css">
     <link rel="stylesheet" href="<?= $slash ?>Assets/css/adicional.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="<?= $slash ?>Assets/plugins/daterangepicker/daterangepicker.css">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js" defer></script>
     <style>
         .cintillo {
             background-color: #2E219E !important;
@@ -76,7 +76,7 @@ if ($cantidad_s >= 6) {
                 <ul class="navbar-nav ml-auto">
                     <!-- Navbar Search -->
                     <li class="nav-item">
-                        <a href="<?= $slash ?>Usuarios/logout" class="nav-link icon mr-2">
+                        <a href="<?= $slash ?>Usuarios/logout/0" class="nav-link icon mr-2">
                             Cerrar Sesión <i class="ion ion-log-out"></i>
                         </a>
                     </li>
@@ -120,38 +120,52 @@ if ($cantidad_s >= 6) {
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                <?php
+
+                                if ($_SESSION['rol'] != 4) {
+                                ?>
+                                    <li class="nav-item">
+                                        <a href="<?= $slash ?>Pruebas/listar" class="nav-link <?= ($activo == 'ListarPruebas') ? 'active' : '' ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Listar Pruebas</p>
+                                        </a>
+                                    </li>
+                                <?php
+
+                                }
+                                ?>
                                 <li class="nav-item">
-                                    <a href="<?= $slash ?>Pruebas/listar" class="nav-link <?= ($activo == 'ListarPruebas') ? 'active' : '' ?>">
+                                    <a href="<?= $slash ?>Pruebas/realizar" class="nav-link <?= ($activo == 'RealizarPruebas') ? 'active' : '' ?>">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Listar Pruebas</p>
+                                        <p>Realizar Pruebas</p>
                                     </a>
                                 </li>
 
                             </ul>
                         </li>
-                       
+
                         <?php
 
-                        if ($_SESSION['rol'] != 4 and $_SESSION['rol'] != 3) {
+                        if ($_SESSION['rol'] != 4) {
                         ?>
-                        <li class="nav-item <?= ($menu_open == 'preguntas') ? 'menu-open' : '' ?> preguntas">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-folder-open"></i>
-                                <p>
-                                    Preguntas
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="<?= $slash ?>Preguntas/listar" class="nav-link <?= ($activo == 'ListarPreguntas') ? 'active' : '' ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Listar Preguntas</p>
-                                    </a>
-                                </li>
+                            <li class="nav-item <?= ($menu_open == 'preguntas') ? 'menu-open' : '' ?> preguntas">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-folder-open"></i>
+                                    <p>
+                                        Preguntas
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="<?= $slash ?>Preguntas/listar" class="nav-link <?= ($activo == 'ListarPreguntas') ? 'active' : '' ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Listar Preguntas</p>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
                             <!-- Usuarios -->
                             <li class="nav-item <?= ($menu_open == 'usuarios') ? 'menu-open' : '' ?> usuarios">
                                 <a href="#" class="nav-link">
@@ -194,18 +208,18 @@ if ($cantidad_s >= 6) {
                                     </li>
                                 </ul>
                             </li>
+                            <!-- Configuración -->
+                            <li class="nav-item configuracion">
+                                <a href="<?= $slash ?>Usuarios/configuracion" class="nav-link <?= ($activo == 'ConfiguracionUsuarios') ? 'active' : '' ?>">
+                                    <i class="nav-icon fas fa-address-book"></i>
+                                    <p>
+                                        Configuración
+                                    </p>
+                                </a>
+                            </li>
                         <?php
                         }
                         ?>
-                        <!-- Configuración -->
-                        <li class="nav-item configuracion">
-                            <a href="<?= $slash ?>Usuarios/configuracion" class="nav-link <?= ($activo == 'ConfiguracionUsuarios') ? 'active' : '' ?>">
-                                <i class="nav-icon fas fa-address-book"></i>
-                                <p>
-                                    Configuración
-                                </p>
-                            </a>
-                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

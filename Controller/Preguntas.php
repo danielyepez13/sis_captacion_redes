@@ -60,11 +60,11 @@ class Preguntas extends Controllers
             $j++;
         }
 
-        $resp_correctas = implode(", ",$resp_correctas);
+        // $resp_correctas = implode(",",$resp_correctas);
 
         $respuesta = array("usuario" => $visualizar['nombre'] . " " . $visualizar['apellido'], "enunciado" => $visualizar['enunciado'], "respuestas" => $visualizar['respuestas'], "correctas" => $resp_correctas, "fecha_pregunta" => $visualizar['fecha_preg'], "hora_pregunta" => $visualizar['hora_preg'] ,"estatus_pregunta" => $estatus);
         echo json_encode($respuesta);
-        // die();
+        die();
     }
 
     public function editar(){
@@ -79,7 +79,7 @@ class Preguntas extends Controllers
 
         $respuesta = array('enunciado' => $data['enunciado'], 'respuestas' => $respuestas, 'correctas' => $correctas ,'count_resp' => $count_resp, 'id_pregunta' => $data['id_pregunta']);
         echo json_encode($respuesta);
-        die();
+        // die();
     }
 
     public function modificar()
@@ -104,9 +104,9 @@ class Preguntas extends Controllers
 
     public function deshabilitar(string $id_pregunta)
     {
-        $this->id_pregunta = intval($id_pregunta);
+        $id_pregunta = intval($id_pregunta);
 
-        $deshabilitar = $this->model->deshabilitarPreguntas($this->id_pregunta);
+        $deshabilitar = $this->model->deshabilitarPreguntas($id_pregunta);
         if ($deshabilitar) {
             $data = 'desha_exito';
         } else {
@@ -117,9 +117,9 @@ class Preguntas extends Controllers
 
     public function habilitar(string $id_pregunta)
     {
-        $this->id_pregunta = intval($id_pregunta);
+        $id_pregunta = intval($id_pregunta);
 
-        $habilitar = $this->model->habilitarPreguntas($this->id_pregunta);
+        $habilitar = $this->model->habilitarPreguntas($id_pregunta);
         if ($habilitar) {
             $data = 'ha_exito';
         } else {

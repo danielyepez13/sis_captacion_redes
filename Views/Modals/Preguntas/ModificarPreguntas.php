@@ -33,7 +33,7 @@
                         <!-- Div donde se colocan los inputs a clonar -->
                         <div id="contenedor"></div>
 
-                        <div id="botones" class="mb-3 ">
+                        <div id="botones" class="mb-3">
                         	<div class="row">
                         		<div class="col-lg-6">
                         			<a href="#" class="btn btn-primary add_field_button_edit agregar">Agregar</a>

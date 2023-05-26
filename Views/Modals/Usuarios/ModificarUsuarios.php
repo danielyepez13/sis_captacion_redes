@@ -12,21 +12,22 @@
                     <form action="../Usuarios/modificar" id="modificar_usuarios" method="POST">
                         <input type="hidden" id="id_usuario_edit" name="id_usuario_edit">
                         <label for="nombre_edit">Nombre: </label> 
-                        <input type="text" id="nombre_edit" name="nombre_edit" class="form-control">
-                        <br>
+                        <input type="text" id="nombre_edit" name="nombre_edit" class="form-control mb-4">
+                        
                         <label for="apellido_edit">Apellido: </label>
-                        <input type="text" id="apellido_edit" name="apellido_edit" class="form-control">
-                        <br>
+                        <input type="text" id="apellido_edit" name="apellido_edit" class="form-control mb-4">
+                        
                         <label for="cedula_edit">Cédula: </label>
-                        <input type="text" id="cedula_edit" name="cedula_edit" class="form-control">
-                        <br>
+                        <input type="text" id="cedula_edit" name="cedula_edit" class="form-control mb-4">
+                        
                         <label for="contra_edit">Nueva contraseña del Usuario:</label>
-                        <input type="password" id="contra_edit" name="contra_edit" class="form-control">
-                        <br>
+                        <input type="password" id="contra_edit" name="contra_edit" class="form-control mb-4">
+                        
                         <label for="rol_edit">Rol: </label>
-                        <select name="rol_edit" id="rol_edit" class="form-control">
+                        <select name="rol_edit" id="rol_edit" class="form-control mb-4">
 
                         </select>
+                        <div id="cargo_modif" ></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary" id="modificar">Editar</button>

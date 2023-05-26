@@ -26,6 +26,9 @@
                         <select class="form-control mb-2" name="rol_regis" id="rol_regis">
 
                         </select>
+
+                        <div id="cargo"></div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary" id="registrar">Registrar</button>

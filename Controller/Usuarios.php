@@ -62,10 +62,19 @@ class Usuarios extends Controllers
     }
 
     // Método que permitirá cerrar la sesión iniciada
-    public function logout()
+    public function logout(int $prueba)
     {
         session_destroy();
-        header("Location: ../Inicio");
+        if($prueba == 1){
+            header("Location: ../../Inicio?msg=prueba_terminada");
+            // echo '1';
+        }else if($prueba == 2){
+            header("Location: ../../Inicio?msg=prueba_terminada_error");
+        }
+        else{
+            // echo null;
+            header("Location: ../Inicio");
+        }
     }
 
     // Trae la vista del listado de usuarios
@@ -88,11 +97,11 @@ class Usuarios extends Controllers
 
         // Se crea el forach para listar todos los roles
         foreach ($resul_roles as $roles) {
-            if($_SESSION['rol'] != 1){
-                if($roles['id_rol'] != 1){
-                    $rol .= "<option value='$roles[id_rol]'>$roles[nombre_rol]</option>";        
+            if ($_SESSION['rol'] != 1) {
+                if ($roles['id_rol'] != 1) {
+                    $rol .= "<option value='$roles[id_rol]'>$roles[nombre_rol]</option>";
                 }
-            }else{
+            } else {
                 $rol .= "<option value='$roles[id_rol]'>$roles[nombre_rol]</option>";
             }
         }
@@ -109,13 +118,14 @@ class Usuarios extends Controllers
         $apellido = $_POST['apellido_regis'];
         $cedula = $_POST['cedula_regis'];
         $contrasena = $_POST['contrasena_regis'];
+        $cargo = $_POST['cargo_postulado'];
         $fecha = date('Y-m-d');
         $hora = date('H:i:s');
         $hash = hash("SHA256", $contrasena);
         $rol = $_POST['rol_regis'];
 
         // Busca la función en el modelo para insertar los datos en la BD
-        $insert = $this->model->insertUsuarios($nombre, $apellido, $cedula, $hash, $rol, $fecha, $hora);
+        $insert = $this->model->insertUsuarios($nombre, $apellido, $cedula, $hash, $rol, $fecha, $hora, $cargo);
 
         // Realiza la condicional para retornar una respuesta al usuario dependiendo del resultado
         if ($insert === 'existe') {
@@ -147,7 +157,7 @@ class Usuarios extends Controllers
             $estatus = 'Deshabilitado';
         }
 
-        $respuesta = array("nombre" => $visualizar['nombre'] . " " . $visualizar['apellido'], "cedula" => $visualizar['cedula'], "rol" => $visualizar['nombre_rol'], "fecha_registro" => $visualizar['fecha_registro'], "hora_registro" => $visualizar['hora_registro'] ,"estatus_usuario" => $estatus);
+        $respuesta = array("nombre" => $visualizar['nombre'] . " " . $visualizar['apellido'], "cedula" => $visualizar['cedula'], "rol" => $visualizar['nombre_rol'], "cargo" => $visualizar['nombre_cargo'], "fecha_registro" => $visualizar['fecha_registro'], "hora_registro" => $visualizar['hora_registro'], "estatus_usuario" => $estatus);
         echo json_encode($respuesta);
         die();
     }
@@ -155,44 +165,48 @@ class Usuarios extends Controllers
     public function editar()
     {
         $id_usuario = intval($_POST['editar']);
-        // Busco el usuario específico
+        // Se busca el usuario específico
         $data = $this->model->selectUsuario($id_usuario);
 
-        // Instancio una variable vacía para evitar errores posteriores
+        // Se instancia una variable vacía para evitar errores posteriores
         $rol = "";
 
-        // Concateno la primera opción que fue la que ya estaba en la base de datos
+        // Se concatena la primera opción que fue la que ya estaba en la base de datos
         $rol .= "<option value='$data[rol]' selected>$data[nombre_rol]</option>";
 
-        // Busco en la base de datos los roles que aparecen
+        // Se busca en la base de datos los roles que aparecen
         $resul_roles = $this->model->selectRoles();
 
-        // Se crea el forach para listar todos los roles
-        // foreach ($resul_roles as $roles) {
-
-        //     // Mientras la lista de roles sean diferentes del actual, entrarán en la condicional
-        //     if ($data['rol'] != $roles['id_rol']) {
-        //         $rol .= "<option value='$roles[id_rol]'>$roles[nombre_rol]</option>";
-        //     }
-        // }
-
         foreach ($resul_roles as $roles) {
-            if($_SESSION['rol'] != 1){
-                if($roles['id_rol'] != 1){
+            if ($_SESSION['rol'] != 1) {
+                if ($roles['id_rol'] != 1) {
                     // Mientras la lista de roles sean diferentes del actual, entrarán en la condicional
                     if ($data['rol'] != $roles['id_rol']) {
                         $rol .= "<option value='$roles[id_rol]'>$roles[nombre_rol]</option>";
-                    }      
+                    }
                 }
-            }else{
-               // Mientras la lista de roles sean diferentes del actual, entrarán en la condicional
+            } else {
+                // Mientras la lista de roles sean diferentes del actual, entrarán en la condicional
                 if ($data['rol'] != $roles['id_rol']) {
                     $rol .= "<option value='$roles[id_rol]'>$roles[nombre_rol]</option>";
                 }
             }
         }
 
-        $respuesta = array('nombre' => $data['nombre'], 'apellido' => $data['apellido'], 'rol' => $rol, 'cedula' => $data['cedula'], 'id_usuario' => $id_usuario);
+        $cargo = '<label for="cargo_edit">Cargo: </label>
+        <select name="cargo_edit" id="cargo_edit" class="form-control">';
+        $cargo .= "<option value='$data[cargo_postulado]' selected>$data[nombre_cargo]</option>";
+        $resul_cargos = $this->model->selectCargos();
+
+        foreach ($resul_cargos as $cargos) {
+            // Mientras la lista de cargos sean diferentes del actual entrarán en la condicional
+            if ($data['cargo_postulado'] != $cargos['id_cargo']) {
+                $cargo .= "<option value='$cargos[id_cargo]'>$cargos[nombre_cargo]</option>";
+            }
+        }
+        $cargo .= "</select>";
+
+        $respuesta = array('nombre' => $data['nombre'], 'apellido' => $data['apellido'], 'rol' => $rol, 'cargo' => $cargo,'cedula' => $data['cedula'], 'id_usuario' => $id_usuario);
         echo json_encode($respuesta);
         die();
     }
@@ -202,11 +216,12 @@ class Usuarios extends Controllers
         $nombre = $_POST['nombre_edit'];
         $apellido = $_POST['apellido_edit'];
         $rol = $_POST['rol_edit'];
+        $cargo = $_POST['cargo_edit'];
         $cedula = $_POST['cedula_edit'];
         $contra = $_POST['contra_edit'];
         $hash = hash("SHA256", $contra);
 
-        $modificar = $this->model->modificarUsuarios($id_usuario, $nombre, $apellido, $rol, $cedula, $hash);
+        $modificar = $this->model->modificarUsuarios($id_usuario, $nombre, $apellido, $rol, $cedula, $hash, $cargo);
         if ($modificar) {
             $data = 'modif_exito';
             header('Location: ../Usuarios/listar?msg=' . $data);
@@ -275,7 +290,7 @@ class Usuarios extends Controllers
             header('Location: ../Usuarios/configuracion?msg=' . $data);
             die();
         }
-        
+
         // var_dump($modificar);
         // echo $data;
     }
@@ -298,5 +313,20 @@ class Usuarios extends Controllers
             header('Location: ../Usuarios/configuracion?msg=' . $data);
             die();
         }
+    }
+
+    public function cargos()
+    {
+        $cargos = $this->model->selectCargos();
+
+        $resul_cargos = "<select name='cargo_postulado' id='cargo_postulado' class='form-control' required>
+        <option value='' >Seleccione un cargo para el usuario postulado</option>";
+        foreach ($cargos as $cargo) {
+            $resul_cargos .= "<option value='$cargo[id_cargo]'>$cargo[nombre_cargo]</option>";
+        }
+        $resul_cargos .= "</select>";
+
+        echo $resul_cargos;
+        die();
     }
 }

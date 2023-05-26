@@ -39,7 +39,7 @@
       $msg = !empty($_GET['msg']) ? $_GET['msg'] : "";
       $texto = '';
       $alerta = '';
-
+      
       if ($msg == 'error-captcha') {
         $texto = 'El Captcha devolvió un error';
         $alerta = 'warning';
@@ -58,6 +58,15 @@
       } else if ($msg == 'error-vacio') {
         $texto = 'La contraseña o la cédula se encuentra vacía';
         $alerta = 'danger';
+      } else if ($msg == 'sin_prueba') {
+        $texto = 'Usted no posee una prueba asignada. Por favor contacte a su supervisor para más información';
+        $alerta = 'danger';
+      } else if ($msg == 'prueba_terminada_error') {
+        $texto = 'Ha ocurrido un error inesperado al cambiar el estatus de la prueba para su revisión.';
+        $alerta = 'danger';
+      } else if ($msg == 'prueba_terminada') {
+        $texto = 'La prueba ha culminado, muchas gracias por presentar.';
+        $alerta = 'success';
       }
       // Muestra el mensaje en caso de que la variable no este vacía
       if (!empty($msg)) {
@@ -100,10 +109,10 @@
               <div class="card-footer">
                 <div class="g-recaptcha" data-sitekey="6LcKyKcjAAAAAP_WPv_OuqlKWr8SmfDe6Hw9m4jz"></div>
                 <div class="d-flex justify-content-between">
-                  <button type="submit" class="btn btn-primary mt-2">Enviar</button>
-                  <div class="recuperacion mt-2">
+                  <button type="submit" class="btn btn-primary mt-2">Iniciar</button>
+                  <!-- <div class="recuperacion mt-2">
                     <a href="#" class="btn btn-secondary" data-toggle='modal' data-target='#recupModal'>Recuperación de contraseña</a>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </form>

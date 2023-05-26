@@ -31,33 +31,33 @@ if ($cantidad_s >= 6) {
 <!-- ./wrapper -->
 <!-- jQuery -->
 <script src="<?= $slash ?>Assets/plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="<?= $slash ?>Assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
+<!-- <script>
   $.widget.bridge('uibutton', $.ui.button)
-</script>
+</script> -->
 <!-- Bootstrap 4 -->
 <script src="<?= $slash ?>Assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="<?= $slash ?>Assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- jquery-validation -->
 <script src="<?= $slash ?>Assets/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="<?= $slash ?>Assets/plugins/jquery-validation/additional-methods.min.js"></script>
-<!-- Summernote -->
-<script src="<?= $slash ?>Assets/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- daterangepicker -->
-<script src="<?= $slash ?>Assets/plugins/moment/moment.min.js"></script>
 <script src="<?= $slash ?>Assets/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= $slash ?>Assets/js/adminlte.js"></script>
-<script src="<?= $slash ?>Assets/js/pages/dashboard.js"></script>
 <?php
 if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
 ?>
   <!-- Assets para funcionalidades del proyecto -->
   <script src="<?= $slash ?>Assets/js/<?= ucfirst($pagina) ?>/regis_<?= $pagina ?>.js"></script>
   <script src="<?= $slash ?>Assets/js/<?= ucfirst($pagina) ?>/visua_<?= $pagina ?>.js"></script>
-  <script src="<?= $slash ?>Assets/js/<?= ucfirst($pagina) ?>/modif_<?= $pagina ?>.js"></script>
+  <?php
+  if($data != 'RealizarPruebas'){
+    ?>
+    <script src="<?= $slash ?>Assets/js/<?= ucfirst($pagina) ?>/modif_<?= $pagina ?>.js"></script>
+    <?php
+  }
+  ?>
   <script src="<?= $slash ?>Assets/js/<?= ucfirst($pagina) ?>/valid_<?= $pagina ?>.js"></script>
 
   <!-- DataTables  & Plugins -->
