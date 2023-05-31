@@ -6,27 +6,39 @@ class EstadisticasModel extends Conexion{
         parent::__construct();
     }
 
-    public function estadisticaEstadoBien(){
-        $sql_bueno = "SELECT * FROM bienes WHERE estado_bien = 1";
-        $sql_malo = "SELECT * FROM bienes WHERE estado_bien = 2";
+    // public function estadisticaEstadoBien(){
+    //     $sql_bueno = "SELECT * FROM bienes WHERE estado_bien = 1";
+    //     $sql_malo = "SELECT * FROM bienes WHERE estado_bien = 2";
 
-        $bueno = $this->cantidad($sql_bueno);
-        $malo = $this->cantidad($sql_malo);
+    //     $bueno = $this->cantidad($sql_bueno);
+    //     $malo = $this->cantidad($sql_malo);
 
-        $respuesta = array('bueno' => $bueno, 'malo' => $malo);
+    //     $respuesta = array('bueno' => $bueno, 'malo' => $malo);
+    //     return $respuesta;
+    // }
+
+    public function estadisticaPruebas(){
+        $sql = "SELECT * FROM pruebas WHERE status_prueba = 3";
+
+        $cantidad = $this->cantidad($sql);
+        $lista = $this->listar($sql);
+
+        $respuesta = array('cantidad' => $cantidad, 'lista' => $lista);
         return $respuesta;
     }
 
-    public function estadisticaTipoActa(){
-        $sql_entrega = "SELECT * FROM actas WHERE tipo_acta = 1";
-        $sql_salida = "SELECT * FROM actas WHERE tipo_acta = 2";
-        $sql_desincor = "SELECT * FROM actas WHERE tipo_acta = 3";
+    public function estadisticaCargos(){
+        $cargo = "SELECT * FROM cargo_postulado";
+        $dos = "SELECT * FROM usuarios WHERE cargo_postulado = 1 AND rol = 4";
+        $tres = "SELECT * FROM usuarios WHERE cargo_postulado = 2 AND rol = 4";
+        $coor = "SELECT * FROM usuarios WHERE cargo_postulado = 3 AND rol = 4";
 
-        $entrega = $this->cantidad($sql_entrega);
-        $salida = $this->cantidad($sql_salida);
-        $desincor = $this->cantidad($sql_desincor);
+        $cargos = $this->listar($cargo);
+        $especialistados = $this->cantidad($dos);
+        $especialistatres = $this->cantidad($tres);
+        $coordinador = $this->cantidad($coor);
 
-        $respuesta = array('entrega' => $entrega, 'salida' => $salida, 'desincor' => $desincor);
+        $respuesta = array('cargos' => $cargos ,'especialistados' => $especialistados, 'especialistatres' => $especialistatres, 'coordinador' => $coordinador);
         return $respuesta;
     }
 }

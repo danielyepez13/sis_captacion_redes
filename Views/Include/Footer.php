@@ -111,7 +111,7 @@ if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
 ?>
   <script src="<?= $slash ?>Assets/plugins/chart.js/Chart.min.js"></script>
   <?php
-  if ($estadistica == 'EstadoBien') {
+  if ($estadistica == 'PruebasRealizadas') {
   ?>
     <script>
       var estadobien = document.getElementById("estado").getContext("2d");
@@ -119,19 +119,21 @@ if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
       var barChart = new Chart(estadobien, {
         type: 'doughnut',
         data: {
+          // Nombres de las columnas
           labels: [
             <?php
-            foreach ($data as $nombres) {
-              echo "'" . $nombres['nombre_condicion'] . "', ";
+            for ($i=0; $i < count($data); $i++) { 
+              echo "'" . $data[$i] . "', ";
             }
             ?>
           ],
+          // Estableciendo los datos
           datasets: [{
-            label: 'estado',
+            label: 'Pruebas',
             data: [
               <?php
 
-              echo $data2['bueno'] . ", " . $data2['malo'];
+              echo $data3. ", " . $data2[0]. ", " . $data2[1];
 
               ?>
             ],
@@ -153,7 +155,7 @@ if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
       });
     </script>
   <?php
-  } else if ($estadistica == 'TipoActa') {
+  } else if ($estadistica == 'cantidadPostulantes') {
   ?>
     <script>
       var tipoacta = document.getElementById("tipo").getContext("2d");
@@ -163,8 +165,8 @@ if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
         data: {
           labels: [
             <?php
-            foreach ($data as $nombres) {
-              echo "'" . $nombres['nombre_tipo'] . "', ";
+            for ($i=0; $i < count($data); $i++) { 
+              echo "'" . $data[$i] . "', ";
             }
             ?>
           ],
@@ -173,7 +175,7 @@ if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
             data: [
               <?php
 
-              echo $data2['entrega'] . ", " . $data2['salida'] . ", " . $data2['desincor'];
+              echo $data2[0] . ", " . $data2[1] . ", " . $data2[2];
 
               ?>
             ],

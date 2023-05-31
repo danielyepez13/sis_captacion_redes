@@ -133,14 +133,19 @@ if ($cantidad_s >= 6) {
                                 <?php
 
                                 }
-                                ?>
-                                <li class="nav-item">
-                                    <a href="<?= $slash ?>Pruebas/realizar" class="nav-link <?= ($activo == 'RealizarPruebas') ? 'active' : '' ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Realizar Pruebas</p>
-                                    </a>
-                                </li>
 
+                                if ($_SESSION['rol'] == 4) {
+                                ?>
+                                    <li class="nav-item">
+                                        <a href="<?= $slash ?>Pruebas/realizar" class="nav-link <?= ($activo == 'RealizarPruebas') ? 'active' : '' ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Realizar Pruebas</p>
+                                        </a>
+                                    </li>
+                                <?php
+
+                                }
+                                ?>
                             </ul>
                         </li>
 
@@ -195,15 +200,15 @@ if ($cantidad_s >= 6) {
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="<?= $slash ?>Estadisticas/." class="nav-link <?= ($activo == 'EstadoBien') ? 'active' : '' ?>">
+                                        <a href="<?= $slash ?>Estadisticas/realizados" class="nav-link <?= ($activo == 'EstadoBien') ? 'active' : '' ?>">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Estadística 1</p>
+                                            <p>Cantidad de Pruebas</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="<?= $slash ?>Estadisticas/." class="nav-link <?= ($activo == 'TipoActa') ? 'active' : '' ?>">
+                                        <a href="<?= $slash ?>Estadisticas/cargos" class="nav-link <?= ($activo == 'TipoActa') ? 'active' : '' ?>">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Estadística 2</p>
+                                            <p>Cargos de Postulantes</p>
                                         </a>
                                     </li>
                                 </ul>

@@ -10,17 +10,7 @@
             </div>
             <div class="modal-body">
                 <div id="contenedor">
-                    <!-- <div class="tab">
-                        Pregunta:
-                        <div class="row">
-                            <div class="col-lg-10 enunciado">
-                                <textarea class="form-control mb-2" name="enunciado" readonly></textarea>
-                            </div>
-                            <div class="col-lg-2 correcta">
-                                ¿Correcta? No
-                            </div>
-                        </div>
-                    </div> -->
+                    
                 </div>
 
 

@@ -26,7 +26,18 @@
                 }
             }else{
                 // Si el rol es cualquier otro que no sea usuario
-                $this->views->getView($this, "Dashboard");
+                $total = $this->model->cantidadPruebasDashboard();
+                $cant = $this->model->cantidadPruebasDashboard(true);
+                $aprobados = 0;
+                for ($i=0; $i < count($cant); $i++) { 
+                    // Si la cantidad de respuestas correctas es igual al 80% a la cantidad de preguntas entonces se asume que el postulante aprobó
+                    // Nota: la función round redondea el resultado del 80% para que sea posible compararlo con la cantidad de respuestas correctas
+                    if((round($cant[$i]['max_preguntas']*80)/100) <= $cant[$i]['cant_resp_correctas']){
+                        $aprobados++;
+                    }
+                }
+                // echo $aprobados;
+                $this->views->getView($this, "Dashboard", $total, $aprobados);
             }
             
         }

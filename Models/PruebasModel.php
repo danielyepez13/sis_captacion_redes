@@ -9,7 +9,7 @@ class PruebasModel extends Conexion{
     {
         // Se renombró el segmento donde se busca en usuarios los evaluadores como a y los evaluados como b
         // Se hizo igual con cualquier elemento que proviniera de ellos para que no existieran conflictos al listarlos
-        $query = "SELECT p.id_prueba, p.evaluador, p.evaluado, p.max_preguntas, p.cant_resp_correctas, p.fecha_reg_prue, p.hora_reg_prue, p.status_prueba, a.nombre as nombre_evaluador, a.apellido as apellido_evaluador, b.nombre as nombre_evaluado, b.apellido as apellido_evaluado, st.estatus FROM pruebas as p INNER JOIN usuarios as a ON p.evaluador = a.id_usuario INNER JOIN usuarios as b ON p.evaluado = b.id_usuario INNER JOIN status_prueba as st ON p.status_prueba = st.id_est_prue";
+        $query = "SELECT p.id_prueba, p.evaluador, p.evaluado, p.max_preguntas, p.cant_resp_correctas, p.fecha_reg_prue, p.hora_reg_prue, p.status_prueba, a.nombre as nombre_evaluador, a.apellido as apellido_evaluador, b.nombre as nombre_evaluado, b.apellido as apellido_evaluado, st.estatus FROM pruebas as p INNER JOIN usuarios as a ON p.evaluador = a.id_usuario INNER JOIN usuarios as b ON p.evaluado = b.id_usuario INNER JOIN status_prueba as st ON p.status_prueba = st.id_est_prue ORDER BY status_prueba ASC, fecha_reg_prue DESC";
         $resul = $this->listar($query);
         return $resul;
     }

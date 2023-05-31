@@ -6,22 +6,19 @@ class DashboardModel extends Conexion{
         parent::__construct();
     }
 
-    // public function cantidadBienesDashboard(string $usuario = ''){
-    //     if(!empty($usuario)){
-    //         $sql = "SELECT * FROM bienes WHERE asignado = $usuario";
-    //     }else{
-    //         $sql = 'SELECT * FROM bienes';
-    //     }
-    //     $res = $this->cantidad($sql);
-    //     return $res;
-    // }
+    public function cantidadPruebasDashboard(bool $listado = false){
+        // variable para saber si se debe listar los resultados o solo devolver la cantidad de registros
+        $sql = "SELECT * FROM pruebas WHERE status_prueba = 3";
+        if($listado){
+            $res = $this->listar($sql);
+        }else{
+            $res = $this->cantidad($sql);
+        }
+        return $res;
+    }
 
-    // public function cantidadActasDashboard(string $usuario = ''){
-    //     if(!empty($usuario)){
-    //         $sql = "SELECT * FROM actas WHERE usuario_registro = $usuario";
-    //     }else{
-    //         $sql = 'SELECT * FROM actas';
-    //     }
+    // public function cantidadPruebasAproDashboard(){
+    //     $sql = "SELECT * FROM pruebas";
     //     $res = $this->cantidad($sql);
     //     return $res;
     // }

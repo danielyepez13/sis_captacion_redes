@@ -33,13 +33,6 @@ class Conexion extends Datos_Conexion{
 		return $data;
 	}
 
-    // Devuelve el ID generado por una consulta en una tabla con una columna que tenga el atributo AUTO_INCREMENT
-	function id_insert($sql){
-		$res=mysqli_query($this->con,$sql);
-		$id = mysqli_insert_id($this->con);
-	  	return $id;
-	}
-
     // Registra la sentencia SQL
 	function registrar($sql){
 	  mysqli_query($this->con,$sql);
