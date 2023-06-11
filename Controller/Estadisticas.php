@@ -13,10 +13,10 @@ class Estadisticas extends Controllers
         // $this->acta = new ActasModel();
     }
 
-    public function realizados()
+    public function realizados(int $cargo)
     {
         $pruebas = ['Realizados', 'Aprobados', 'Reprobados'];
-        $cantidad = $this->model->estadisticaPruebas();
+        $cantidad = $this->model->estadisticaPruebas($cargo);
         $lista = $cantidad['lista'];
         $cant = $cantidad['cantidad'];
         $aprobados = 0;
@@ -47,20 +47,20 @@ class Estadisticas extends Controllers
     //     $this->views->getView($this, "TipoActa", $nombres_tipos, "", $actas);
     // }
 
-    public function cargos()
-    {
-        $sql = $this->model->estadisticaCargos();
+    // public function cargos()
+    // {
+    //     $sql = $this->model->estadisticaCargos();
 
-        $lista = $sql['cargos'];
-        $dos = $sql['especialistados'];
-        $tres = $sql['especialistatres'];
-        $coor = $sql['coordinador'];
+    //     $lista = $sql['cargos'];
+    //     $dos = $sql['especialistados'];
+    //     $tres = $sql['especialistatres'];
+    //     $coor = $sql['coordinador'];
 
-        for ($i=0; $i < count($lista); $i++) { 
-            $postulados[$i] = $lista[$i]['nombre_cargo']; 
-        }
+    //     for ($i=0; $i < count($lista); $i++) { 
+    //         $postulados[$i] = $lista[$i]['nombre_cargo']; 
+    //     }
 
-        $cargos = array($dos, $tres, $coor);
-        $this->views->getView($this, "cantidadPostulantes", $postulados, "", $cargos);
-    }
+    //     $cargos = array($dos, $tres, $coor);
+    //     $this->views->getView($this, "cantidadPostulantes", $postulados, "", $cargos);
+    // }
 }

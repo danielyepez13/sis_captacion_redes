@@ -56,6 +56,10 @@ if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
     ?>
     <script src="<?= $slash ?>Assets/js/<?= ucfirst($pagina) ?>/modif_<?= $pagina ?>.js"></script>
     <?php
+  }else{
+    ?>
+    <script src="<?= $slash ?>Assets/js/<?= ucfirst($pagina) ?>/reali_pruebas.js"></script>
+    <?php
   }
   ?>
   <script src="<?= $slash ?>Assets/js/<?= ucfirst($pagina) ?>/valid_<?= $pagina ?>.js"></script>

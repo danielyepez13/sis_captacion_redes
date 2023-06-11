@@ -14,9 +14,9 @@
                         <select name="evaluado" id="evaluado" class='form-control mb-2'>
 
                         </select>
-                        <label for="">Máximo de preguntas</label>
+                        <!-- <label for="">Máximo de preguntas</label> -->
                         <!-- Números enteros -->
-                        <input type="number" name="max_preguntas" id="max_preguntas" value="10" class='form-control mb-2'>
+                        <!-- <input type="number" name="max_preguntas" id="max_preguntas" value="10" class='form-control mb-2'> -->
 
                         <!-- <label for="">Mínimo de puntuación para pasar</label> -->
                         <!-- Porcentaje -->

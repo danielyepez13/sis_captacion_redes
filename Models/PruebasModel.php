@@ -69,7 +69,7 @@ class PruebasModel extends Conexion{
     public function habilitarPruebas(int $id_prueba)
     {
         $query = "UPDATE pruebas SET
-                status_prueba=1
+                status_prueba=3
                 WHERE id_prueba = $id_prueba";
         $resul = $this->registrar($query);
         return $resul;
@@ -111,6 +111,7 @@ class PruebasModel extends Conexion{
         return $preguntas;
     }
 
+    // Busca la prueba que tenga asignada el usuario o postulante en la base de datos
     public function verificarUsuarioPrueba(){
         $usuario = $_SESSION['id'];
         $fecha = date('Y-m-d');
@@ -119,8 +120,14 @@ class PruebasModel extends Conexion{
         return $result;
     }
 
-    public function responderPrueba(int $id_prueba, int $id_pregunta, int $pregunta_correcta,string $fecha, string $hora){
-        $query = "INSERT INTO responder(id_prueba, id_pregunta, pregunta_correcta, fecha_resp, hora_resp) VALUES ($id_prueba,$id_pregunta, $pregunta_correcta,'$fecha','$hora')";
+    public function verificarRegistroPrueba (int $evaluado){
+        $query = "SELECT * FROM pruebas WHERE evaluado = $evaluado AND (status_prueba = 2 OR status_prueba = 1)";
+        $result = $this->verificar($query);
+        return $result;
+    }
+
+    public function responderPrueba(int $id_prueba, int $id_pregunta, int $pregunta_correcta, string $fecha, string $hora, string $tiempo){
+        $query = "INSERT INTO responder (id_prueba, id_pregunta, pregunta_correcta, fecha_resp, hora_resp, tiempo_respuesta) VALUES ($id_prueba,$id_pregunta, $pregunta_correcta,'$fecha','$hora', '$tiempo')";
         $result = $this->registrar($query);
         return $result;
     }

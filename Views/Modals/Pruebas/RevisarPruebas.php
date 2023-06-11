@@ -13,7 +13,6 @@
                     
                 </div>
 
-
                 <div style="overflow:auto;">
                     <div style="float:right;">
                         <button type="button" id="previoBtn" class="btn btn-gray" onclick="sigPrev(-1)" style="display: none;">Anterior</button>

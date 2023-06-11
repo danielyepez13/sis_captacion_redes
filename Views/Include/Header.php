@@ -200,15 +200,9 @@ if ($cantidad_s >= 6) {
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="<?= $slash ?>Estadisticas/realizados" class="nav-link <?= ($activo == 'EstadoBien') ? 'active' : '' ?>">
+                                        <a href="<?= $slash ?>Estadisticas/realizados/0" class="nav-link <?= ($activo == 'EstadoBien') ? 'active' : '' ?>">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Cantidad de Pruebas</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="<?= $slash ?>Estadisticas/cargos" class="nav-link <?= ($activo == 'TipoActa') ? 'active' : '' ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Cargos de Postulantes</p>
                                         </a>
                                     </li>
                                 </ul>

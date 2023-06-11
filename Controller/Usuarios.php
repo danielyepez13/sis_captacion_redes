@@ -70,6 +70,8 @@ class Usuarios extends Controllers
             // echo '1';
         }else if($prueba == 2){
             header("Location: ../../Inicio?msg=prueba_terminada_error");
+        }else if($prueba == 3){
+            header("Location: ../../Inicio?msg=prueba_tiempo_acabado");
         }
         else{
             // echo null;

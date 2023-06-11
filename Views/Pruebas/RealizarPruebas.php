@@ -7,6 +7,9 @@ $msg = !empty($_GET['msg']) ? $_GET['msg'] : "";
 encabezado($menu_open, $activo, $msg, $titulo);
 ?>
 <div class="container-fluid">
+    <p class="mx-3 font-clock">
+        <span id="minutes" >00</span>:<span id="seconds">00</span> <b style="display: none;">:</b> <span id="tens" style="display: none;">00</span>
+    </p>
     <form id="regForm" action="../Pruebas/revision" class="mx-3 my-2" method="POST">
         <input type="hidden" id="cant" value="<?= count($data) ?>">
         <?php
@@ -29,11 +32,11 @@ encabezado($menu_open, $activo, $msg, $titulo);
                 for ($j = 0; $j < count($data[$i]['respuestas']); $j++) {
                 ?>
                     <div class="row mb-3 respuestas">
-                        <div class="col-lg-9 respuesta<?=$i?>">
+                        <div class="col-lg-9 respuesta<?= $i ?>">
                             <input type="text" class="form-control answer" name="respuesta[]" value="<?= $data[$i]['respuestas'][$j] ?>" readonly>
                         </div>
-                        <div class="col-lg-3 correcta<?=$i?>">
-                            <input type="checkbox" name="correcta[]" class="question mycheck" value="<?=$j?>">
+                        <div class="col-lg-3 correcta<?= $i ?>">
+                            <input type="checkbox" name="correcta[]" class="question mycheck" value="<?= $j ?>">
                         </div>
                     </div>
                 <?php
@@ -53,11 +56,11 @@ encabezado($menu_open, $activo, $msg, $titulo);
         <!-- Circles which indicates the steps of the form: -->
         <div class="text-center mt-3">
             <?php
-                for ($i=0; $i < count($data); $i++) { 
-                    ?>
-                    <span class="step"></span>
-                    <?php
-                }
+            for ($i = 0; $i < count($data); $i++) {
+            ?>
+                <span class="step"></span>
+            <?php
+            }
             ?>
         </div>
 

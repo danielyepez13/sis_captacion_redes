@@ -34,9 +34,12 @@ if (empty($msg)) {
 } else if ($msg == 'ha_exito') {
     $texto = 'Se habilitó con éxito';
     $alerta = 'success';
-} else if ($msg == 'exito_acta') {
-    $texto = 'Se registró el acta con éxito';
+} else if ($msg == 'exito_puntuar') {
+    $texto = 'Se confirmó la prueba correctamente';
     $alerta = 'success';
+} else if ($msg == 'existe_prueba') {
+    $texto = 'Ya existe una prueba en la que el usuario escogido fue seleccionado';
+    $alerta = 'warning';
 } else {
     $texto = 'Surgió un error inesperado. Espere unos momentos antes de seguir intentando.';
     $alerta = 'danger';

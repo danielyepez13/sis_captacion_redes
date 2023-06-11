@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2023 a las 04:56:33
+-- Tiempo de generación: 11-06-2023 a las 15:06:50
 -- Versión del servidor: 10.1.10-MariaDB
 -- Versión de PHP: 7.0.2
 
@@ -96,6 +96,7 @@ CREATE TABLE `pruebas` (
   `evaluado` int(11) NOT NULL,
   `max_preguntas` int(11) NOT NULL,
   `cant_resp_correctas` int(11) NOT NULL,
+  `tiempo_respuesta` varchar(6) NOT NULL,
   `fecha_reg_prue` date NOT NULL,
   `hora_reg_prue` time NOT NULL,
   `status_prueba` int(11) NOT NULL DEFAULT '1'
@@ -105,9 +106,18 @@ CREATE TABLE `pruebas` (
 -- Volcado de datos para la tabla `pruebas`
 --
 
-INSERT INTO `pruebas` (`id_prueba`, `evaluador`, `evaluado`, `max_preguntas`, `cant_resp_correctas`, `fecha_reg_prue`, `hora_reg_prue`, `status_prueba`) VALUES
-(12, 24, 28, 12, 2, '2023-05-24', '17:10:53', 3),
-(13, 24, 28, 11, 0, '2023-05-25', '22:17:31', 2);
+INSERT INTO `pruebas` (`id_prueba`, `evaluador`, `evaluado`, `max_preguntas`, `cant_resp_correctas`, `tiempo_respuesta`, `fecha_reg_prue`, `hora_reg_prue`, `status_prueba`) VALUES
+(12, 24, 28, 12, 2, '', '2023-05-24', '17:10:53', 4),
+(13, 24, 28, 11, 0, '', '2023-05-25', '22:17:31', 3),
+(14, 24, 28, 10, 8, '', '2023-05-27', '14:51:23', 3),
+(15, 24, 28, 10, 2, '', '2023-06-06', '14:16:35', 3),
+(16, 24, 28, 10, 0, '', '2023-06-06', '17:02:33', 4),
+(17, 24, 28, 10, 0, '', '2023-06-10', '18:40:45', 4),
+(18, 24, 28, 10, 0, '', '2023-06-10', '18:51:28', 4),
+(19, 24, 28, 10, 0, '', '2023-06-10', '19:07:26', 4),
+(20, 24, 28, 10, 0, '', '2023-06-10', '19:11:42', 4),
+(21, 24, 28, 10, 0, '', '2023-06-10', '19:15:40', 4),
+(22, 24, 28, 10, 0, '', '2023-06-10', '19:17:41', 4);
 
 -- --------------------------------------------------------
 
@@ -140,7 +150,27 @@ INSERT INTO `responder` (`id_responder`, `id_prueba`, `id_pregunta`, `pregunta_c
 (21, 12, 4, 0, '2023-05-24', '09:32:12'),
 (22, 12, 7, 0, '2023-05-24', '09:32:12'),
 (23, 12, 22, 0, '2023-05-24', '09:32:12'),
-(24, 12, 18, 0, '2023-05-24', '09:32:12');
+(24, 12, 18, 0, '2023-05-24', '09:32:12'),
+(25, 14, 20, 1, '2023-05-27', '03:09:08'),
+(26, 14, 15, 1, '2023-05-27', '03:09:08'),
+(27, 14, 19, 0, '2023-05-27', '03:09:08'),
+(28, 14, 9, 1, '2023-05-27', '03:09:08'),
+(29, 14, 11, 1, '2023-05-27', '03:09:08'),
+(30, 14, 7, 1, '2023-05-27', '03:09:08'),
+(31, 14, 22, 1, '2023-05-27', '03:09:08'),
+(32, 14, 6, 1, '2023-05-27', '03:09:08'),
+(33, 14, 14, 0, '2023-05-27', '03:09:08'),
+(34, 14, 23, 1, '2023-05-27', '03:09:08'),
+(35, 15, 12, 0, '2023-06-06', '02:36:20'),
+(36, 15, 21, 0, '2023-06-06', '02:36:20'),
+(37, 15, 10, 0, '2023-06-06', '02:36:20'),
+(38, 15, 6, 0, '2023-06-06', '02:36:20'),
+(39, 15, 22, 1, '2023-06-06', '02:36:20'),
+(40, 15, 13, 1, '2023-06-06', '02:36:20'),
+(41, 15, 4, 0, '2023-06-06', '02:36:20'),
+(42, 15, 20, 0, '2023-06-06', '02:36:20'),
+(43, 15, 5, 0, '2023-06-06', '02:36:20'),
+(44, 15, 11, 0, '2023-06-06', '02:36:20');
 
 -- --------------------------------------------------------
 
@@ -292,12 +322,12 @@ ALTER TABLE `preguntas`
 -- AUTO_INCREMENT de la tabla `pruebas`
 --
 ALTER TABLE `pruebas`
-  MODIFY `id_prueba` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_prueba` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `responder`
 --
 ALTER TABLE `responder`
-  MODIFY `id_responder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id_responder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --

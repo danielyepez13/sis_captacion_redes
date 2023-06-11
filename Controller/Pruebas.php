@@ -49,20 +49,28 @@ class Pruebas extends Controllers
     {
         $evaluador = intval($_SESSION['id']);
         $evaluado = intval($_POST['evaluado']);
-        $max_preguntas = intval($_POST['max_preguntas']);
-        // $min_puntuacion = $_POST['min_puntuacion'];
+        // Máximo de preguntas fijo
+        $max_preguntas = 10;
         $fecha = date('Y-m-d');
         $hora = date('H:i:s');
 
-        $insert = $this->model->insertPruebas($evaluador, $evaluado, $max_preguntas, $fecha, $hora);
+        $verificar = $this->model->verificarRegistroPrueba($evaluado);
+        // Siempre que el resultado original no sea verdadero se podrá continuar el proceso de registro
+        if (!$verificar) {
+            $insert = $this->model->insertPruebas($evaluador, $evaluado, $max_preguntas, $fecha, $hora);
 
-        // En caso de que se devuelva True o False como resultado
-        if ($insert === true) {
-            $data = 'exito_prueba';
-            header('Location: ../Pruebas/listar?msg=' . $data);
-            die();
+            // En caso de que se devuelva True o False como resultado
+            if ($insert === true) {
+                $data = 'exito_prueba';
+                header('Location: ../Pruebas/listar?msg=' . $data);
+                die();
+            } else {
+                $data = 'error_prueba';
+                header('Location: ../Pruebas/listar?msg=' . $data);
+                die();
+            }
         } else {
-            $data = 'error_prueba';
+            $data = 'existe_prueba';
             header('Location: ../Pruebas/listar?msg=' . $data);
             die();
         }
@@ -75,15 +83,15 @@ class Pruebas extends Controllers
         $visualizar = $this->model->selectPrueba($pruebas);
 
         // Decirle al coordinador/administrador si pasó el usuario
-        $puntuacion_minima = ($visualizar['max_preguntas'] * 80) / 100 ;
+        $puntuacion_minima = ($visualizar['max_preguntas'] * 80) / 100;
         $cant_correctas = $visualizar['cant_resp_correctas'];
-        if(round($puntuacion_minima) <= $cant_correctas){
+        if (round($puntuacion_minima) <= $cant_correctas) {
             $aprobo = 'Aprobó';
-        }else{
+        } else {
             $aprobo = 'Reprobó';
         }
 
-        $respuesta = array("evaluador" => $visualizar['nombre_evaluador'] . " " . $visualizar['apellido_evaluador'], "evaluado" => $visualizar['nombre_evaluado'] . " " . $visualizar['apellido_evaluado'], "fecha_reg_prue" => $visualizar['fecha_reg_prue'], "hora_reg_prue" => $visualizar['hora_reg_prue'], "cant_resp_correctas" => $cant_correctas, "aprobo" => $aprobo,"cargo" => $visualizar['nombre_cargo'], "estatus_prueba" => $visualizar['estatus']);
+        $respuesta = array("evaluador" => $visualizar['nombre_evaluador'] . " " . $visualizar['apellido_evaluador'], "evaluado" => $visualizar['nombre_evaluado'] . " " . $visualizar['apellido_evaluado'], "fecha_reg_prue" => $visualizar['fecha_reg_prue'], "hora_reg_prue" => $visualizar['hora_reg_prue'], "cant_resp_correctas" => $cant_correctas, "aprobo" => $aprobo, "cargo" => $visualizar['nombre_cargo'], "estatus_prueba" => $visualizar['estatus']);
         echo json_encode($respuesta);
         die();
     }
@@ -123,9 +131,9 @@ class Pruebas extends Controllers
 
         $prueba = $this->model->selectPruebaDelUsuario($id_prueba);
         for ($i = 0; $i < count($prueba); $i++) {
-            if($i == 0){
+            if ($i == 0) {
                 $block = 'style="display:block;"';
-            }else{
+            } else {
                 $block = 'style="display:none;"';
             }
             $tab .= "
@@ -133,15 +141,15 @@ class Pruebas extends Controllers
                 Pregunta:
                 <div class='row'>
                     <div class='col-lg-10 enunciado'>
-                        <textarea class='form-control mb-2' name='enunciado' readonly>". $prueba[$i]['enunciado']."</textarea>
+                        <textarea class='form-control mb-2' name='enunciado' readonly>" . $prueba[$i]['enunciado'] . "</textarea>
                     </div>";
 
-            if($prueba[$i]['pregunta_correcta'] == 0){
+            if ($prueba[$i]['pregunta_correcta'] == 0) {
                 $correcta = 'No';
-            }else{
+            } else {
                 $correcta = 'Si';
             }
-            
+
             $tab .= "<div class='col-lg-2 correcta'>
                         ¿Correcta? $correcta
                     </div>";
@@ -163,6 +171,7 @@ class Pruebas extends Controllers
     {
         $respuesta = json_decode($_POST['respuesta']);
         $correcta = json_decode($_POST['correcta']);
+        $tiempo = $_POST['tiempo'];
         $fecha = date('Y-m-d');
         $hora = date('h:i:s');
 
@@ -191,17 +200,18 @@ class Pruebas extends Controllers
                 $resp_correcta = 0;
             }
 
-            $responder = $this->model->responderPrueba($verificar['id_prueba'], $pregunta_opc[0]['id_pregunta'], $resp_correcta, $fecha, $hora);
+            $responder = $this->model->responderPrueba($verificar['id_prueba'], $pregunta_opc[0]['id_pregunta'], $resp_correcta, $fecha, $hora, $tiempo);
         }
 
         $revision = $this->model->revisionPruebas($verificar['id_prueba']);
 
-        $response = ($revision) ? array('respuesta' => 1) : array('respuesta' => 0);
+        $response = ($revision) ? array('respuesta' => 1) : array('respuesta' => $tiempo);
         echo json_encode($response);
         die();
     }
 
-    public function puntuar(int $id){
+    public function puntuar(int $id)
+    {
         // Cantidad de preguntas correctas
         $cant = $this->model->cantidadPreguntasCorrectasPrueba($id);
 
@@ -217,6 +227,5 @@ class Pruebas extends Controllers
             header('Location: ../../Pruebas/listar?msg=' . $data);
             die();
         }
-
     }
 }
