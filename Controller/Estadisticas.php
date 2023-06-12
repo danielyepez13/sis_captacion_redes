@@ -12,15 +12,14 @@ class Estadisticas extends Controllers
 
     public function realizados(int $cargo)
     {
-        // $fecha = $_GET['fecha_inicio'];
-        // var_dump($fecha);
+        // Comprueba que las variables no estén vacías
         $fecha_inicio = !empty($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : '' ;
         $fecha_fin = !empty($_POST['fecha_fin']) ? $_POST['fecha_fin'] : '' ;
-        // $fecha_inicio = '12-06-2023';
-        // $fecha_fin = '12-06-2023';
+
+        // Hace un arreglo fijo de los diferentes estados que se cargarán en la gráfica
         $pruebas = ['Realizados', 'Aprobados', 'Reprobados'];
+
         $cantidad = $this->model->estadisticaPruebas($cargo, $fecha_inicio, $fecha_fin);
-        // var_dump($cantidad);
         $lista = $cantidad['lista'];
         $cant = $cantidad['cantidad'];
         $aprobados = 0;

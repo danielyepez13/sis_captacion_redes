@@ -86,7 +86,7 @@ class PruebasModel extends Conexion{
     }
 
     public function realizarPrueba(){
-        $max_preguntas = $_GET['max'];
+        $max_preguntas = 10;
         $query = "SELECT * FROM preguntas";
         $resul = $this->listar($query);
 
@@ -101,14 +101,15 @@ class PruebasModel extends Conexion{
                 $i--; // restamos 1 para reutilizar el indice de la pregunta repetida  
             } 
             else {
+                // En vez de un array lo hacemos un string
                 $respuestas = explode(',',$resul[$var]['respuestas']);
+                // Y se almacena en la misma variable
                 $resul[$var]['respuestas'] = $respuestas;
 
                 $preguntas[] = $resul[$var]; // Mostramos la pregunta
                 $preguntadas[] = $resul[$var]; // y la agregamos a las que ya se hicieron        
             }
         }
-        // print_r ($preguntas);
         return $preguntas;
     }
 

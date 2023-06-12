@@ -75,11 +75,18 @@ if ($cantidad_s >= 6) {
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Navbar Search -->
-                    <li class="nav-item">
-                        <a href="<?= $slash ?>Usuarios/logout/0" class="nav-link icon mr-2">
-                            Cerrar Sesión <i class="ion ion-log-out"></i>
-                        </a>
-                    </li>
+                    <?php
+                    // Siempre que la persona en sesión sea un usuario normal o postulante
+                    if ($_SESSION['rol'] != 3) {
+                    ?>
+                        <li class="nav-item">
+                            <a href="<?= $slash ?>Usuarios/logout/0" class="nav-link icon mr-2">
+                                Cerrar Sesión <i class="ion ion-log-out"></i>
+                            </a>
+                        </li>
+                    <?php
+                    }
+                    ?>
                 </ul>
             </div>
 
@@ -89,141 +96,133 @@ if ($cantidad_s >= 6) {
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="<?= $slash ?>Dashboard/dashboard" class="brand-link text-center">
-                <span class="brand-text font-weight-light ">Captación Redes</span>
-            </a>
+            <?php
+            // Siempre que la persona en sesión sea un usuario normal o postulante
+            if ($_SESSION['rol'] != 3) {
+            ?>
+                <a href="<?= $slash ?>Dashboard/dashboard" class="brand-link text-center">
+                <?php
+            } else {
+                ?>
+                    <a href="<?= $sin_get ?>" class="brand-link text-center">
+                    <?php
+                }
+                    ?>
+                    <span class="brand-text font-weight-light ">Captación Redes</span>
+                    </a>
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="<?= $slash ?>Assets/img/user.png" class="img-circle elevation-2" alt="User Image">
-                    </div>
+                    <!-- Sidebar -->
+                    <div class="sidebar">
+                        <!-- Sidebar user panel (optional) -->
+                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                            <div class="image">
+                                <img src="<?= $slash ?>Assets/img/user.png" class="img-circle elevation-2" alt="User Image">
+                            </div>
 
-                    <div class="info">
-                        <!-- Nombre del usuario que lleva al dashborad o página principal -->
-                        <a href="<?= $sin_get ?>" class="d-block"><?= $_SESSION['nombre'] ?></a>
-                    </div>
-                </div>
+                            <div class="info">
+                                <!-- Nombre del usuario que lleva al dashborad o página principal -->
+                                <a href="<?= $sin_get ?>" class="d-block"><?= $_SESSION['nombre'] ?></a>
+                            </div>
+                        </div>
 
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Pruebas -->
-                        <li class="nav-item <?= ($menu_open == 'pruebas') ? 'menu-open' : '' ?> pruebas">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-folder-open"></i>
-                                <p>
-                                    Pruebas
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                        <!-- Sidebar Menu -->
+                        <nav class="mt-2">
+                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                                <!-- Pruebas -->
                                 <?php
 
                                 if ($_SESSION['rol'] != 3) {
                                 ?>
-                                    <li class="nav-item">
-                                        <a href="<?= $slash ?>Pruebas/listar" class="nav-link <?= ($activo == 'ListarPruebas') ? 'active' : '' ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Listar Pruebas</p>
+                                    <li class="nav-item <?= ($menu_open == 'pruebas') ? 'menu-open' : '' ?> pruebas">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-folder-open"></i>
+                                            <p>
+                                                Pruebas
+                                                <i class="fas fa-angle-left right"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+
+                                            <li class="nav-item">
+                                                <a href="<?= $slash ?>Pruebas/listar" class="nav-link <?= ($activo == 'ListarPruebas') ? 'active' : '' ?>">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Listar Pruebas</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                
+                                    <li class="nav-item <?= ($menu_open == 'preguntas') ? 'menu-open' : '' ?> preguntas">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-folder-open"></i>
+                                            <p>
+                                                Preguntas
+                                                <i class="fas fa-angle-left right"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="<?= $slash ?>Preguntas/listar" class="nav-link <?= ($activo == 'ListarPreguntas') ? 'active' : '' ?>">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Listar Preguntas</p>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <!-- Usuarios -->
+                                    <li class="nav-item <?= ($menu_open == 'usuarios') ? 'menu-open' : '' ?> usuarios">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-user"></i>
+                                            <p>
+                                                Usuarios
+                                                <i class="fas fa-angle-left right"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="<?= $slash ?>Usuarios/listar" class="nav-link <?= ($activo == 'ListarUsuarios') ? 'active' : '' ?>">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Listar Usuarios</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- Estadísticas -->
+                                    <li class="nav-item <?= ($menu_open == 'estadisticas') ? 'menu-open' : '' ?> estadisticas">
+                                        <a href="#" class="nav-link">
+                                            <i class="nav-icon fas fa-chart-area"></i>
+                                            <p>
+                                                Estadísticas
+                                                <i class="fas fa-angle-left right"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="<?= $slash ?>Estadisticas/realizados/0" class="nav-link <?= ($activo == 'EstadoBien') ? 'active' : '' ?>">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Cantidad de Pruebas</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- Configuración -->
+                                    <li class="nav-item configuracion">
+                                        <a href="<?= $slash ?>Usuarios/configuracion" class="nav-link <?= ($activo == 'ConfiguracionUsuarios') ? 'active' : '' ?>">
+                                            <i class="nav-icon fas fa-address-book"></i>
+                                            <p>
+                                                Configuración
+                                            </p>
                                         </a>
                                     </li>
                                 <?php
-
-                                }
-
-                                if ($_SESSION['rol'] == 3) {
-                                ?>
-                                    <li class="nav-item">
-                                        <a href="<?= $slash ?>Pruebas/realizar" class="nav-link <?= ($activo == 'RealizarPruebas') ? 'active' : '' ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Realizar Pruebas</p>
-                                        </a>
-                                    </li>
-                                <?php
-
                                 }
                                 ?>
                             </ul>
-                        </li>
-
-                        <?php
-
-                        if ($_SESSION['rol'] != 3) {
-                        ?>
-                            <li class="nav-item <?= ($menu_open == 'preguntas') ? 'menu-open' : '' ?> preguntas">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-folder-open"></i>
-                                    <p>
-                                        Preguntas
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= $slash ?>Preguntas/listar" class="nav-link <?= ($activo == 'ListarPreguntas') ? 'active' : '' ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Listar Preguntas</p>
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </li>
-                            <!-- Usuarios -->
-                            <li class="nav-item <?= ($menu_open == 'usuarios') ? 'menu-open' : '' ?> usuarios">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-user"></i>
-                                    <p>
-                                        Usuarios
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= $slash ?>Usuarios/listar" class="nav-link <?= ($activo == 'ListarUsuarios') ? 'active' : '' ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Listar Usuarios</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- Estadísticas -->
-                            <li class="nav-item <?= ($menu_open == 'estadisticas') ? 'menu-open' : '' ?> estadisticas">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-chart-area"></i>
-                                    <p>
-                                        Estadísticas
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="<?= $slash ?>Estadisticas/realizados/0" class="nav-link <?= ($activo == 'EstadoBien') ? 'active' : '' ?>">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Cantidad de Pruebas</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- Configuración -->
-                            <li class="nav-item configuracion">
-                                <a href="<?= $slash ?>Usuarios/configuracion" class="nav-link <?= ($activo == 'ConfiguracionUsuarios') ? 'active' : '' ?>">
-                                    <i class="nav-icon fas fa-address-book"></i>
-                                    <p>
-                                        Configuración
-                                    </p>
-                                </a>
-                            </li>
-                        <?php
-                        }
-                        ?>
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
+                        </nav>
+                        <!-- /.sidebar-menu -->
+                    </div>
+                    <!-- /.sidebar -->
         </aside>
 
         <!-- Contiene toda la página -->

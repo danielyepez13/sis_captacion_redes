@@ -41,11 +41,14 @@ class Usuarios extends Controllers
                     $_SESSION['id'] = $data['id_usuario'];
                     $_SESSION['nombre'] = $data['nombre'] . " " . $data['apellido'];
                     $_SESSION['cedula'] = $data['cedula'];
-                    // $_SESSION['correo'] = $data['correo'];
                     $_SESSION['nombre_rol'] = $data['nombre_rol'];
                     $_SESSION['rol'] = $data['rol'];
                     $_SESSION['activo'] = true;
-                    header('location: ../Dashboard/dashboard');
+                    if($_SESSION['rol'] == 3){
+                        header('location: ../Pruebas/realizar');
+                    }else{
+                        header('location: ../Dashboard/dashboard');
+                    }
                 } else {
                     $error = 'error-usuario';
                     header("location: ../Inicio?msg=$error");
@@ -74,7 +77,6 @@ class Usuarios extends Controllers
             header("Location: ../../Inicio?msg=prueba_tiempo_acabado");
         }
         else{
-            // echo null;
             header("Location: ../Inicio");
         }
     }
