@@ -91,7 +91,7 @@ class Pruebas extends Controllers
             $aprobo = 'Reprobó';
         }
 
-        $respuesta = array("evaluador" => $visualizar['nombre_evaluador'] . " " . $visualizar['apellido_evaluador'], "evaluado" => $visualizar['nombre_evaluado'] . " " . $visualizar['apellido_evaluado'], "fecha_reg_prue" => $visualizar['fecha_reg_prue'], "hora_reg_prue" => $visualizar['hora_reg_prue'], "cant_resp_correctas" => $cant_correctas, "aprobo" => $aprobo, "cargo" => $visualizar['nombre_cargo'], "estatus_prueba" => $visualizar['estatus']);
+        $respuesta = array("evaluador" => $visualizar['nombre_evaluador'] . " " . $visualizar['apellido_evaluador'], "evaluado" => $visualizar['nombre_evaluado'] . " " . $visualizar['apellido_evaluado'], "fecha_reg_prue" => $visualizar['fecha_reg_prue'], "hora_reg_prue" => $visualizar['hora_reg_prue'], "cant_resp_correctas" => $cant_correctas, "aprobo" => $aprobo, "cargo" => $visualizar['nombre_cargo'], "estatus_prueba" => $visualizar['estatus'], "tiempo" => $visualizar['tiempo_respuesta']);
         echo json_encode($respuesta);
         die();
     }
@@ -200,10 +200,10 @@ class Pruebas extends Controllers
                 $resp_correcta = 0;
             }
 
-            $responder = $this->model->responderPrueba($verificar['id_prueba'], $pregunta_opc[0]['id_pregunta'], $resp_correcta, $fecha, $hora, $tiempo);
+            $responder = $this->model->responderPrueba($verificar['id_prueba'], $pregunta_opc[0]['id_pregunta'], $resp_correcta, $fecha, $hora);
         }
 
-        $revision = $this->model->revisionPruebas($verificar['id_prueba']);
+        $revision = $this->model->revisionPruebas($verificar['id_prueba'], $tiempo);
 
         $response = ($revision) ? array('respuesta' => 1) : array('respuesta' => $tiempo);
         echo json_encode($response);

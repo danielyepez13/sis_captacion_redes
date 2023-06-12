@@ -16,7 +16,7 @@ class PruebasModel extends Conexion{
 
     public function selectPrueba(string $id)
     {
-        $query = "SELECT p.id_prueba, p.evaluador, p.evaluado, p.max_preguntas, p.cant_resp_correctas, p.fecha_reg_prue, p.hora_reg_prue, p.status_prueba, a.nombre as nombre_evaluador, a.apellido as apellido_evaluador, b.nombre as nombre_evaluado, b.apellido as apellido_evaluado, b.cargo_postulado, st.estatus, c.nombre_cargo FROM pruebas as p INNER JOIN usuarios as a ON p.evaluador = a.id_usuario INNER JOIN usuarios as b ON p.evaluado = b.id_usuario INNER JOIN status_prueba as st ON p.status_prueba = st.id_est_prue INNER JOIN cargo_postulado as c ON b.cargo_postulado = c.id_cargo WHERE id_prueba = $id";
+        $query = "SELECT p.id_prueba, p.evaluador, p.evaluado, p.max_preguntas, p.cant_resp_correctas, p.tiempo_respuesta, p.fecha_reg_prue, p.hora_reg_prue, p.status_prueba, a.nombre as nombre_evaluador, a.apellido as apellido_evaluador, b.nombre as nombre_evaluado, b.apellido as apellido_evaluado, b.cargo_postulado, st.estatus, c.nombre_cargo FROM pruebas as p INNER JOIN usuarios as a ON p.evaluador = a.id_usuario INNER JOIN usuarios as b ON p.evaluado = b.id_usuario INNER JOIN status_prueba as st ON p.status_prueba = st.id_est_prue INNER JOIN cargo_postulado as c ON b.cargo_postulado = c.id_cargo WHERE id_prueba = $id";
         $resul = $this->buscar($query);
         return $resul;
     }
@@ -75,10 +75,11 @@ class PruebasModel extends Conexion{
         return $resul;
     }
 
-    public function revisionPruebas(int $id_prueba)
+    public function revisionPruebas(int $id_prueba, string $tiempo)
     {
         $query = "UPDATE pruebas SET
-                status_prueba=2
+                status_prueba=2,
+                tiempo_respuesta = '$tiempo'
                 WHERE id_prueba = $id_prueba";
         $resul = $this->registrar($query);
         return $resul;
@@ -126,8 +127,8 @@ class PruebasModel extends Conexion{
         return $result;
     }
 
-    public function responderPrueba(int $id_prueba, int $id_pregunta, int $pregunta_correcta, string $fecha, string $hora, string $tiempo){
-        $query = "INSERT INTO responder (id_prueba, id_pregunta, pregunta_correcta, fecha_resp, hora_resp, tiempo_respuesta) VALUES ($id_prueba,$id_pregunta, $pregunta_correcta,'$fecha','$hora', '$tiempo')";
+    public function responderPrueba(int $id_prueba, int $id_pregunta, int $pregunta_correcta, string $fecha, string $hora){
+        $query = "INSERT INTO responder (id_prueba, id_pregunta, pregunta_correcta, fecha_resp, hora_resp) VALUES ($id_prueba,$id_pregunta, $pregunta_correcta,'$fecha','$hora')";
         $result = $this->registrar($query);
         return $result;
     }

@@ -15,6 +15,7 @@
                     <p id="cargo"></p>
                     <p id="fecha_reg_prue" class="mb-4"></p>
                     <p id="hora_reg_prue" class="mb-4"></p>
+                    <p id="tiempo"></p>
                     <p id="aprobo" class="mb-4"></p>
                     <p id="cant_resp_correctas" class="mb-4"></p>
                     <p id="estatus_pruebas" class="mb-4"></p>

@@ -122,7 +122,7 @@ if ($cantidad_s >= 6) {
                             <ul class="nav nav-treeview">
                                 <?php
 
-                                if ($_SESSION['rol'] != 4) {
+                                if ($_SESSION['rol'] != 3) {
                                 ?>
                                     <li class="nav-item">
                                         <a href="<?= $slash ?>Pruebas/listar" class="nav-link <?= ($activo == 'ListarPruebas') ? 'active' : '' ?>">
@@ -134,7 +134,7 @@ if ($cantidad_s >= 6) {
 
                                 }
 
-                                if ($_SESSION['rol'] == 4) {
+                                if ($_SESSION['rol'] == 3) {
                                 ?>
                                     <li class="nav-item">
                                         <a href="<?= $slash ?>Pruebas/realizar" class="nav-link <?= ($activo == 'RealizarPruebas') ? 'active' : '' ?>">
@@ -151,7 +151,7 @@ if ($cantidad_s >= 6) {
 
                         <?php
 
-                        if ($_SESSION['rol'] != 4) {
+                        if ($_SESSION['rol'] != 3) {
                         ?>
                             <li class="nav-item <?= ($menu_open == 'preguntas') ? 'menu-open' : '' ?> preguntas">
                                 <a href="#" class="nav-link">

@@ -49,10 +49,8 @@ encabezado($menu_open, $activo, $msg, $titulo);
                         echo "
                         <td><button value='$lista[id_prueba]' id='ver$i' data-toggle='modal' data-target='#verModal' class='btn btn-primary' title='Visualizar'><i class='fas fa-eye'></i></button>";
 
-                        // Siempre que sea diferente del rol de usuario y la prueba debe tener estatus de En revisión
-                        if($_SESSION['rol'] != 4 AND $lista['status_prueba'] == 2){
-                            echo "<a href='../Pruebas/revisar/$lista[id_prueba]' id='revisar$i' data-toggle='modal' data-target='#revisarModal' class='btn btn-info ml-1' title='Revisar'><i class='fas fa-calendar-check'></i></a>";
-                        }
+                        echo "<a href='../Pruebas/revisar/$lista[id_prueba]' id='revisar$i' data-toggle='modal' data-target='#revisarModal' class='btn btn-info ml-1' title='Revisar'><i class='fas fa-calendar-check'></i></a>";
+                        
 
                         // Solo el administrador puede deshabilitar
                         if ($_SESSION['rol'] == 1) {

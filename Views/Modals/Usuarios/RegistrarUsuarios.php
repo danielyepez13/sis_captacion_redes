@@ -27,7 +27,7 @@
 
                         </select>
 
-                        <div id="cargo"></div>
+                        <div id="cargar_cargo"></div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

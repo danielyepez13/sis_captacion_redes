@@ -40,6 +40,9 @@ if (empty($msg)) {
 } else if ($msg == 'existe_prueba') {
     $texto = 'Ya existe una prueba en la que el usuario escogido fue seleccionado';
     $alerta = 'warning';
+} else if($msg == 'prueba_tiempo_acabado'){
+    $texto = 'El tiempo para realizar la prueba ha culminado. Comuniquese con su supervisor para saber como proceder';
+    $alerta = 'warning';
 } else {
     $texto = 'Surgió un error inesperado. Espere unos momentos antes de seguir intentando.';
     $alerta = 'danger';
