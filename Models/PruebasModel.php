@@ -22,7 +22,7 @@ class PruebasModel extends Conexion{
     }
 
     public function selectEvaluados(){
-        $query = "SELECT * FROM usuarios WHERE rol = 4";
+        $query = "SELECT * FROM usuarios WHERE rol = 3";
         $resul = $this->listar($query);
         return $resul;
     }
