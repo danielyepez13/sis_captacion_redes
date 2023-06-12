@@ -8,18 +8,18 @@ class Pruebas extends Controllers
             header("location: ../Inicio");
         }
         parent::__construct();
-        // Instacia la clase de helper
-        // $this->pregunta = new PreguntasModel();
     }
 
     public function listar()
     {
+        // Escoge el método/función para seleccionar todas las pruebas
         $data = $this->model->selectPruebas();
         $this->views->getView($this, "ListarPruebas", $data);
     }
 
     public function realizar()
     {
+        // Escoge el método para seleccionar las preguntas que se harán en la prueba sin repetir ninguna
         $data = $this->model->realizarPrueba();
         $this->views->getView($this, "RealizarPruebas", $data);
     }
@@ -30,6 +30,7 @@ class Pruebas extends Controllers
         // Instancio una variable vacía para evitar errores posteriores
         $usuario = "";
 
+        // Concatena la primera opción del select
         $usuario .= "<option value='' selected>Seleccione un usuario</option>";
 
         // Busco en la base de datos los roles que aparecen
@@ -160,9 +161,6 @@ class Pruebas extends Controllers
             ";
             $paso .= '<span class="paso"></span>';
         }
-
-        // for($i = 0; $i < count($prueba); $i++){
-        // }
         $respuesta = array('tab' => $tab, 'paso' => $paso);
         echo json_encode($respuesta);
     }

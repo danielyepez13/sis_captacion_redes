@@ -118,9 +118,9 @@ if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
   if ($estadistica == 'PruebasRealizadas') {
   ?>
     <script>
-      var estadobien = document.getElementById("estado").getContext("2d");
+      var estadistica1 = document.getElementById("est_pruebas").getContext("2d");
 
-      var barChart = new Chart(estadobien, {
+      var barChart = new Chart(estadistica1, {
         type: 'doughnut',
         data: {
           // Nombres de las columnas
@@ -159,51 +159,7 @@ if ($pagina != 'dashboard' and $pagina != 'estadisticas') {
       });
     </script>
   <?php
-  } else if ($estadistica == 'cantidadPostulantes') {
-  ?>
-    <script>
-      var tipoacta = document.getElementById("tipo").getContext("2d");
-
-      var barChart = new Chart(tipoacta, {
-        type: 'doughnut',
-        data: {
-          labels: [
-            <?php
-            for ($i=0; $i < count($data); $i++) { 
-              echo "'" . $data[$i] . "', ";
-            }
-            ?>
-          ],
-          datasets: [{
-            label: 'estado',
-            data: [
-              <?php
-
-              echo $data2[0] . ", " . $data2[1] . ", " . $data2[2];
-
-              ?>
-            ],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-            ]
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-          }
-        },
-      });
-    </script>
-  <?php
-  }
-  ?>
-<?php
+  } 
 }
 ?>
 </body>

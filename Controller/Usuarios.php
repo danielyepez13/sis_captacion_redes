@@ -212,6 +212,7 @@ class Usuarios extends Controllers
         echo json_encode($respuesta);
         die();
     }
+    
     public function modificar()
     {
         $id_usuario = $_POST['id_usuario_edit'];
@@ -233,7 +234,6 @@ class Usuarios extends Controllers
             header('Location: ../Usuarios/listar?msg=' . $data);
             die();
         }
-        // echo $data;
     }
 
     public function deshabilitar(string $id_usuario)

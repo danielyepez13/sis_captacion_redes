@@ -8,15 +8,19 @@ class Estadisticas extends Controllers
             header("location: ../Inicio");
         }
         parent::__construct();
-        // Instacia la clase de helper
-        // $this->bien = new BienesModel();
-        // $this->acta = new ActasModel();
     }
 
     public function realizados(int $cargo)
     {
+        // $fecha = $_GET['fecha_inicio'];
+        // var_dump($fecha);
+        $fecha_inicio = !empty($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : '' ;
+        $fecha_fin = !empty($_POST['fecha_fin']) ? $_POST['fecha_fin'] : '' ;
+        // $fecha_inicio = '12-06-2023';
+        // $fecha_fin = '12-06-2023';
         $pruebas = ['Realizados', 'Aprobados', 'Reprobados'];
-        $cantidad = $this->model->estadisticaPruebas($cargo);
+        $cantidad = $this->model->estadisticaPruebas($cargo, $fecha_inicio, $fecha_fin);
+        // var_dump($cantidad);
         $lista = $cantidad['lista'];
         $cant = $cantidad['cantidad'];
         $aprobados = 0;
@@ -38,29 +42,4 @@ class Estadisticas extends Controllers
         */
         $this->views->getView($this, "pruebasRealizadas", $pruebas, $cant, $apro_repro);
     }
-
-    // public function tipo()
-    // {
-    //     $nombres_tipos = $this->acta->selectTipos();
-    //     $actas = $this->model->estadisticaTipoActa();
-
-    //     $this->views->getView($this, "TipoActa", $nombres_tipos, "", $actas);
-    // }
-
-    // public function cargos()
-    // {
-    //     $sql = $this->model->estadisticaCargos();
-
-    //     $lista = $sql['cargos'];
-    //     $dos = $sql['especialistados'];
-    //     $tres = $sql['especialistatres'];
-    //     $coor = $sql['coordinador'];
-
-    //     for ($i=0; $i < count($lista); $i++) { 
-    //         $postulados[$i] = $lista[$i]['nombre_cargo']; 
-    //     }
-
-    //     $cargos = array($dos, $tres, $coor);
-    //     $this->views->getView($this, "cantidadPostulantes", $postulados, "", $cargos);
-    // }
 }
