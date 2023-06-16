@@ -3,7 +3,7 @@
         public function __construct()
         {
             parent::__construct();
-             // Instacia la clase de helper
+            // Instacia la clase de helper
         	$this->usuario = new UsuariosModel();
         }
 

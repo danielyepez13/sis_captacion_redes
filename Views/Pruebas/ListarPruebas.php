@@ -48,9 +48,15 @@ encabezado($menu_open, $activo, $msg, $titulo);
                     if ($lista['status_prueba'] != 4) {
                         echo "
                         <td><button value='$lista[id_prueba]' id='ver$i' data-toggle='modal' data-target='#verModal' class='btn btn-primary' title='Visualizar'><i class='fas fa-eye'></i></button>";
-
+                        
+                        // Si se encuentra en revisión
                         if($lista['status_prueba'] == 2){
                             echo "<a href='../Pruebas/revisar/$lista[id_prueba]' id='revisar$i' data-toggle='modal' data-target='#revisarModal' class='btn btn-info ml-1' title='Revisar'><i class='fas fa-calendar-check'></i></a>";
+                        }
+                        
+                        // Si se encuentra finalizada la prueba
+                        if($lista['status_prueba'] == 3){
+                            echo "<a href='../Pruebas/verPDF/$lista[id_prueba]' target='_blank' class='btn btn-secondary ml-1' title='PDF'><i class='fas fa-file'></i></a>";
                         }
                         
                         // Solo el administrador puede deshabilitar

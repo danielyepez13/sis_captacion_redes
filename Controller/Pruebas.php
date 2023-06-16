@@ -8,6 +8,8 @@ class Pruebas extends Controllers
             header("location: ../Inicio");
         }
         parent::__construct();
+        // Instacia la clase de helper
+        $this->usuario = new UsuariosModel();
     }
 
     public function listar()
@@ -95,6 +97,22 @@ class Pruebas extends Controllers
         $respuesta = array("evaluador" => $visualizar['nombre_evaluador'] . " " . $visualizar['apellido_evaluador'], "evaluado" => $visualizar['nombre_evaluado'] . " " . $visualizar['apellido_evaluado'], "fecha_reg_prue" => $visualizar['fecha_reg_prue'], "hora_reg_prue" => $visualizar['hora_reg_prue'], "cant_resp_correctas" => $cant_correctas, "aprobo" => $aprobo, "cargo" => $visualizar['nombre_cargo'], "estatus_prueba" => $visualizar['estatus'], "tiempo" => $visualizar['tiempo_respuesta']);
         echo json_encode($respuesta);
         die();
+    }
+
+    public function verPDF(int $pruebas){
+        $visualizar = $this->model->selectPrueba($pruebas);
+        $usuario = $this->usuario->selectUsuario($visualizar['evaluado']);
+        // Decirle al coordinador/administrador si pasó el usuario
+        $puntuacion_minima = ($visualizar['max_preguntas'] * 80) / 100;
+        $cant_correctas = $visualizar['cant_resp_correctas'];
+        if (round($puntuacion_minima) <= $cant_correctas) {
+            $aprobo = 'Aprobó';
+        } else {
+            $aprobo = 'Reprobó';
+        }
+
+        $respuesta = array("evaluador" => $visualizar['nombre_evaluador'] . " " . $visualizar['apellido_evaluador'], "evaluado" => $visualizar['nombre_evaluado'] . " " . $visualizar['apellido_evaluado'], "fecha_reg_prue" => $visualizar['fecha_reg_prue'], "hora_reg_prue" => $visualizar['hora_reg_prue'], "cant_resp_correctas" => $cant_correctas, "aprobo" => $aprobo, "cargo" => $visualizar['nombre_cargo'], "estatus_prueba" => $visualizar['estatus'], "tiempo" => $visualizar['tiempo_respuesta'], "cedula" => $usuario['cedula']);
+        $this->views->getView($this, "PDFVisualizarPrueba", $respuesta);
     }
 
     public function deshabilitar(string $id_prueba)
